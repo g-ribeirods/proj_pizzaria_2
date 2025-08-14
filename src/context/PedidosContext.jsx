@@ -20,15 +20,12 @@ export function PedidosProvider({ children }) {
     pedido.status === 'entrega' && !pedido.entregueOuServido
   );
 
-  const adicionarPedido = (pedido) => {
-    const novoPedido = {
-      ...pedido,
+  const adicionarPedido = (novoPedido) => {
+    setPedidos(prev => [...prev, { 
+      ...novoPedido, 
       status: 'preparacao',
-      id: Date.now(), 
-      data: new Date().toLocaleString('pt-BR')
-    };
-    
-    setPedidos(prev => [...prev, novoPedido]);
+      tipoEntrega: novoPedido.tipoEntrega // Adiciona esta linha
+    }]);
   };
 
   const marcarPedidoPronto = (id) => {

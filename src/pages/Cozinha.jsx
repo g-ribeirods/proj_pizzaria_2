@@ -38,7 +38,7 @@ export function Cozinha() {
       ) : (
         pedidosPreparacao.map((pedido) => ( 
           <PedidoCard key={pedido.id}>
-            <p><strong>Mesa/Endereço:</strong> {pedido.mesaOuEndereco}</p>
+            <p><strong>Tipo:</strong> {pedido.tipoEntrega === 'local' ? 'Consumo no Local' : 'Entrega'}</p>
             <p><strong>Data:</strong> {pedido.data}</p>
             {pedido.itens.map((item, i) => (
               <p key={i}>{item.quantity}x {item.name}</p>

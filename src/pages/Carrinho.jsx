@@ -4,6 +4,27 @@ import { useCart } from '../context/CartContext';
 import { usePedidos } from '../context/PedidosContext';
 import { toast } from 'react-toastify';
 
+const DeliveryOptions = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+`;
+
+const OptionButton = styled.button`
+  flex: 1;
+  padding: 1rem;
+  background: ${props => props.active ? '#d32f2f' : '#f5f5f5'};
+  color: ${props => props.active ? 'white' : '#333'};
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: ${props => props.active ? 'bold' : 'normal'};
+  transition: all 0.3s;
+
+  &:hover {
+    background: ${props => props.active ? '#b71c1c' : '#e0e0e0'};
+  }
+`;
 
 const Container = styled.div`
   padding: 2rem;
@@ -104,38 +125,51 @@ export function Carrinho() {
     increaseQuantity, 
     decreaseQuantity, 
     removeItem,
-    clearCart 
+    clearCart
   } = useCart();
 
   const { adicionarPedido } = usePedidos();
-
+  
   const [mesaOuEndereco, setMesaOuEndereco] = useState('');
+  const [tipoEntrega, setTipoEntrega] = useState(null); // 'local' ou 'entrega'
 
   const finalizarPedido = () => {
     if (cartItems.length === 0) {
       toast.error("Carrinho vazio!");
       return;
-   }
-
-    if (!mesaOuEndereco.trim()) {
-     toast.error("Informe o número da mesa ou endereço!");
-     return;
     }
 
-  const novoPedido = {
-    itens: [...cartItems],
-    total,
-    data: new Date().toLocaleString(),
-    mesaOuEndereco,
-    entregueOuServido: false,
-    status: "preparacao"
-  };
+    if (!tipoEntrega) {
+      toast.error("Selecione o tipo de entrega!");
+      return;
+    }
 
-  adicionarPedido(novoPedido);
-  clearCart();
-  setMesaOuEndereco('');
-  toast.success("Pedido enviado para a cozinha!");
-};
+    if (tipoEntrega === 'local' && !mesaOuEndereco.trim()) {
+      toast.error("Informe o número da mesa!");
+      return;
+    }
+
+    if (tipoEntrega === 'entrega' && !mesaOuEndereco.trim()) {
+      toast.error("Informe o endereço de entrega!");
+      return;
+    }
+
+    const novoPedido = {
+      itens: [...cartItems],
+      total,
+      data: new Date().toISOString(),
+      mesaOuEndereco,
+      tipoEntrega,
+      entregueOuServido: false,
+      status: "pendente"
+    };
+
+    adicionarPedido(novoPedido);
+    clearCart();
+    setMesaOuEndereco('');
+    setTipoEntrega(null);
+    toast.success("Pedido enviado com sucesso!");
+  };
 
   return (
     <Container>
@@ -162,11 +196,34 @@ export function Carrinho() {
             </CartItem>
           ))}
 
+          {/* Adicione esta seção de opções de entrega */}
+          <DeliveryOptions>
+            <OptionButton 
+              type="button"
+              onClick={() => setTipoEntrega('local')}
+              active={tipoEntrega === 'local'}
+            >
+              Consumir no Local
+            </OptionButton>
+            <OptionButton 
+              type="button"
+              onClick={() => setTipoEntrega('entrega')}
+              active={tipoEntrega === 'entrega'}
+            >
+              Entrega
+            </OptionButton>
+          </DeliveryOptions>
+
           <Input
             type="text"
-            placeholder="Número da mesa ou endereço"
+            placeholder={
+              tipoEntrega === 'local' ? "Número da mesa" : 
+              tipoEntrega === 'entrega' ? "Endereço de entrega" : 
+              "Selecione o tipo de entrega"
+            }
             value={mesaOuEndereco}
             onChange={(e) => setMesaOuEndereco(e.target.value)}
+            disabled={!tipoEntrega}
           />
 
           <TotalContainer>
