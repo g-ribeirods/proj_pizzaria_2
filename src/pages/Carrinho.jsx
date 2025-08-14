@@ -155,6 +155,7 @@ export function Carrinho() {
     }
 
     const novoPedido = {
+      id: Date.now(), // ← Garanta que isso existe
       itens: [...cartItems],
       total,
       data: new Date().toISOString(),

@@ -36,13 +36,15 @@ export function PedidosProvider({ children }) {
     );
   };
 
-  const marcarComoEntregueOuServido = (id) => {
-    setPedidos(prev =>
-      prev.map(pedido =>
-        pedido.id === id ? { ...pedido, entregueOuServido: true } : pedido
-      )
-    );
-  };
+const marcarComoEntregueOuServido = (id) => { // ← Mude para receber ID
+  setPedidos(prev => 
+    prev.map(pedido => 
+      pedido.id === id
+        ? { ...pedido, entregueOuServido: true, status: "finalizado" }
+        : pedido
+    )
+  );
+};
 
   return (
     <PedidosContext.Provider
