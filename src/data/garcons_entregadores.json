@@ -1,0 +1,15 @@
+{
+  "garcons": [
+    {"id": 1, "name": "Carlos"},
+    {"id": 2, "name": "João"},
+    {"id": 3, "name": "Pedro"},
+    {"id": 4, "name": "Cláudia"},
+    {"id": 5, "name": "Maria"}
+  ],
+  "entregadores": [
+    {"id": 101, "name": "Jorge"},
+    {"id": 102, "name": "Wallace"},
+    {"id": 103, "name": "Joana"},
+    {"id": 104, "name": "Doroteia"}
+  ]
+}

@@ -36,11 +36,11 @@ export function PedidosProvider({ children }) {
     );
   };
 
-const marcarComoEntregueOuServido = (id) => { // ← Mude para receber ID
+const marcarComoEntregueOuServido = (pedidoAtualizado) => {
   setPedidos(prev => 
     prev.map(pedido => 
-      pedido.id === id
-        ? { ...pedido, entregueOuServido: true, status: "finalizado" }
+      pedido.id === pedidoAtualizado.id
+        ? { ...pedidoAtualizado, entregueOuServido: true, status: "finalizado" }
         : pedido
     )
   );
