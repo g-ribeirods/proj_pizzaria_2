@@ -78,27 +78,51 @@ const LocalBadge = styled.span`
   margin-left: 0.5rem;
 `;
 
+const StaffSelectionContainer = styled.div`
+  margin: 1rem 0;
+`;
+
+const StaffLabel = styled.label`
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #555;
+`;
+
+const StaffSelect = styled.select`
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+`;
+
 export function Entregas() {
-  // Verifique se o StaffContext está sendo exportado corretamente
-  const staff = useContext(StaffContext);
-  const { garcons = [], entregadores = [] } = staff || {};
-  
+  const { garcons = [], entregadores = [] } = useContext(StaffContext) || {};
   const { pedidosEntrega, marcarComoEntregueOuServido } = usePedidos();
   const [selecoes, setSelecoes] = useState({});
+
+  const getStaffDisponivel = (tipoEntrega) => {
+    return tipoEntrega === 'local' ? garcons : entregadores;
+  };
 
   const handleSelecao = (pedidoId, staffId) => {
     setSelecoes(prev => ({ ...prev, [pedidoId]: staffId }));
   };
 
   const handleFinalizar = (pedido) => {
-    if (!selecoes[pedido.id]) {
+    const staffId = selecoes[pedido.id];
+    
+    if (!staffId) {
       toast.error(`Selecione um ${pedido.tipoEntrega === 'local' ? 'garçom' : 'entregador'}!`);
       return;
     }
 
     marcarComoEntregueOuServido({
       ...pedido,
-      staffResponsavel: selecoes[pedido.id]
+      staffResponsavel: staffId,
+      entregueOuServido: true,
+      status: "finalizado"
     });
 
     toast.success(pedido.tipoEntrega === 'local' ? 'Servido!' : 'Entregue!');
@@ -169,27 +193,39 @@ export function Entregas() {
             </InfoRow>
 
             {/* Área de ação (só aparece se não entregue) */}
-            {!pedido.entregueOuServido && (
-              <>
-                <Label>
+             {!pedido.entregueOuServido && (
+              <StaffSelectionContainer>
+                <StaffLabel>
                   {pedido.tipoEntrega === 'local' ? 'Atribuir Garçom:' : 'Atribuir Entregador:'}
-                </Label>
-                <StaffSelector
+                </StaffLabel>
+                <StaffSelect
                   value={selecoes[pedido.id] || ''}
                   onChange={(e) => handleSelecao(pedido.id, e.target.value)}
                 >
                   <option value="">Selecione...</option>
-                  {(pedido.tipoEntrega === 'local' ? garcons : entregadores).map(pessoa => (
+                  {getStaffDisponivel(pedido.tipoEntrega).map(pessoa => (
                     <option key={pessoa.id} value={pessoa.id}>
                       {pessoa.name}
                     </option>
                   ))}
-                </StaffSelector>
+                </StaffSelect>
 
                 <Button onClick={() => handleFinalizar(pedido)}>
                   {pedido.tipoEntrega === 'local' ? 'Confirmar Serviço' : 'Confirmar Entrega'}
                 </Button>
-              </>
+              </StaffSelectionContainer>
+            )}
+
+            {pedido.entregueOuServido && pedido.staffResponsavel && (
+              <InfoRow>
+                <InfoLabel>
+                  {pedido.tipoEntrega === 'local' ? 'Garçom:' : 'Entregador:'}
+                </InfoLabel>
+                <InfoValue>
+                  {getStaffDisponivel(pedido.tipoEntrega)
+                    .find(s => s.id === pedido.staffResponsavel)?.name || 'Não informado'}
+                </InfoValue>
+              </InfoRow>
             )}
           </PedidoCard>
         ))
