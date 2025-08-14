@@ -1,0 +1,184 @@
+{
+  "pizzas": [
+    {
+      "name": "Margherita",
+      "description": "Molho de tomate, mussarela e manjericão",
+      "price": 45.90,
+      "image": "public/images/PizzaMarguerita.jpg"
+    },
+    {
+      "name": "Pepperoni",
+      "description": "Molho de tomate, mussarela e pepperoni",
+      "price": 52.90,
+      "image": "public/images/PizzaPepperoni.jpg"
+    },
+    {
+      "name": "Quatro Queijos",
+      "description": "Mussarela, provolone, parmesão e gorgonzola",
+      "price": 55.90,
+      "image": "public/images/PizzaQuatroQueijos.jpg"
+    },
+    {
+      "name": "Calabresa",
+      "description": "Molho de tomate, mussarela e calabresa",
+      "price": 48.90,
+      "image": "public/images/PizzaCalabresa.jpg"
+    },
+    {
+      "name": "Portuguesa",
+      "description": "Presunto, mussarela, ovo, cebola e azeitonas",
+      "price": 56.90,
+      "image": "public/images/PizzaPortuguesa.jpeg"
+    },
+    {
+      "name": "Atum",
+      "description": "Atum, mussarela, ovo, cebola e azeitonas",
+      "price": 56.90,
+      "image": "public/images/PizzaAtum.jpg"
+    },
+    {
+      "name": "Milho Verde",
+      "description": "Milho, mussarela, ovo, cebola e azeitonas",
+      "price": 56.90,
+      "image": "public/images/PizzaMilhoVerde.jpg"
+    },
+    {
+      "name": "À moda da casa",
+      "description": "Milho, mussarela, ovo, cebola e azeitonas",
+      "price": 56.90,
+      "image": "public/images/PizzaModa.jpg"
+    },
+    {
+      "name": "Mista",
+      "description": "Milho, mussarela, ovo, cebola e azeitonas",
+      "price": 56.90,
+      "image": "public/images/PizzaMista.jpg"
+    }
+  ],
+  "bebidas": [
+    {
+      "name": "Coca-Cola",
+      "description": "Lata 350ml",
+      "price": 6.90,
+      "image": "public/images/CocaColaLata.webp"
+    },
+    {
+      "name": "Guaraná",
+      "description": "Lata 350ml",
+      "price": 5.90,
+      "image": "public/images/Guarana.jpg"
+    },
+    {
+      "name": "Água Mineral",
+      "description": "Garrafa 500ml",
+      "price": 4.50,
+      "image": "public/images/Agua.webp"
+    },
+    {
+      "name": "Suco de Laranja",
+      "description": "Garrafa 500ml",
+      "price": 4.50,
+      "image": "public/images/SucoLaranja.jpg"
+    },
+    {
+      "name": "Suco de Uva",
+      "description": "Garrafa 500ml",
+      "price": 4.50,
+      "image": "public/images/SucoUva.png"
+    },
+    {
+      "name": "Suco de Cupuaçu",
+      "description": "Garrafa 500ml",
+      "price": 4.50,
+      "image": "public/images/SucoCupuacu.jpeg"
+    },
+    {
+      "name": "Suco de Maracujá",
+      "description": "Garrafa 500ml",
+      "price": 4.50,
+      "image": "public/images/SucoMaracuja.jpg"
+    }
+  ],
+  "sobremesas": [
+    {
+      "name": "Brownie",
+      "description": "Com sorvete de creme",
+      "price": 12.90,
+      "image": "public/images/Brownie.jpg"
+    },
+    {
+      "name": "Petit Gateau",
+      "description": "Com sorvete de baunilha",
+      "price": 18.90,
+      "image": "public/images/PetitGateau.jpeg"
+    },
+    {
+      "name": "Cheesecake",
+      "description": "Cheesecake",
+      "price": 18.90,
+      "image": "public/images/cheesecake.webp"
+    },
+    {
+      "name": "Torta Mousse de Chocolate",
+      "description": "Cheesecake",
+      "price": 18.90,
+      "image": "public/images/TortaMousse.webp"
+    },
+    {
+      "name": "Churros Recheado",
+      "description": "Churros Recheados",
+      "price": 18.90,
+      "image": "public/images/ChurrosRecheado.jpg"
+    },
+    {
+      "name": "Cookie Recheado",
+      "description": "Churros Recheados",
+      "price": 18.90,
+      "image": "public/images/CookieRecheado.jpg"
+    }
+  ],
+  "adicionais": [
+    {
+      "name": "Borda de Catupiry",
+      "description": "Borda de catupiry",
+      "price": 8.90,
+      "image": "public/images/BordaCatupiry.jpg"
+    },
+    {
+      "name": "Molho Extra",
+      "description": "Molho de tomate",
+      "price": 3.50,
+      "image": "public/images/MassaVermelha.jpg"
+    },
+    {
+      "name": "Borda de Chocolate",
+      "description": "Borda de Chocolate",
+      "price": 3.50,
+      "image": "public/images/BordaChocolate.jpg"
+    },
+    {
+      "name": "Borda de 4 Queijos",
+      "description": "Borda de 4 Queijos",
+      "price": 3.50,
+      "image": "public/images/Borda4Queijos.jpeg"
+    },
+    {
+      "name": "Borda Doce de Leite",
+      "description": "Borda Doce de Leite",
+      "price": 3.50,
+      "image": "public/images/BordaDoceDeLeite.avif"
+    },
+    {
+      "name": "Borda Bacon com Catupiry",
+      "description": "Borda Bacon com Catupiry",
+      "price": 3.50,
+      "image": "public/images/BordaCatupiry.jpg"
+    },
+    {
+      "name": "Borda Cream Cheese",
+      "description": "Borda Cream Cheese",
+      "price": 3.50,
+      "image": "public/images/BordaCream.webp"
+    }
+  ]
+}
