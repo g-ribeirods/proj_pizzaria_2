@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { usePedidos } from '../context/PedidosContext';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom'; // ← import necessário
+import { useNavigate } from 'react-router-dom';
 
 const DeliveryOptions = styled.div`
   display: flex;
@@ -125,18 +125,16 @@ export function Carrinho() {
     total, 
     increaseQuantity, 
     decreaseQuantity, 
-    removeItem,
-    clearCart
+    removeItem
   } = useCart();
 
   const { adicionarPedido } = usePedidos();
   
   const [mesaOuEndereco, setMesaOuEndereco] = useState('');
-  const [tipoEntrega, setTipoEntrega] = useState(null); // 'local' ou 'entrega'
+  const [tipoEntrega, setTipoEntrega] = useState(null);
 
-  const navigate = useNavigate(); // ← inicializa navigate
+  const navigate = useNavigate();
 
-  // ← função alterada apenas para navegar sem limpar o carrinho
   const finalizarPedido = () => {
     if (cartItems.length === 0) {
       toast.error("Carrinho vazio!");
@@ -158,10 +156,19 @@ export function Carrinho() {
       return;
     }
 
-    // Navega para a página de pagamento
-    navigate('/pagamento');
+    const novoPedido = {
+      id: Date.now(),
+      itens: [...cartItems],
+      total,
+      data: new Date().toISOString(),
+      mesaOuEndereco,
+      tipoEntrega,
+      entregueOuServido: false,
+      status: "pendente"
+    };
 
-    // ← removemos clearCart() e adicionarPedido() aqui
+    adicionarPedido(novoPedido); // ← envia para a cozinha
+    navigate('/pagamento');      // ← vai para página de pagamento
   };
 
   return (
