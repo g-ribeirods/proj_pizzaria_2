@@ -1,0 +1,126 @@
+{
+  "Combos do Dia": [
+    {
+      "name": "Pizza Margherita + Coca-Cola lata 350ml + Brownie",
+      "description": "Combo 1",
+      "price": 59.90,
+      "image": "public/images/combo1.jpg"
+    },
+    {
+      "name": "Pizza Pepperoni + Guaraná lata + Petit Gateau",
+      "description": "Combo 2",
+      "price": 62.90,
+      "image": "public/images/combo2.jpg"
+    },
+    {
+      "name": "Pizza Quatro Queijos + Suco de Uva 500ml + Cheesecake",
+      "description": "Combo 3",
+      "price": 64.90,
+      "image": "public/images/combo3.jpg"
+    },
+    {
+      "name": "Pizza Calabresa + Coca-Cola lata + Cookie Recheado",
+      "description": "Combo 4",
+      "price": 61.90,
+      "image": "public/images/combo4.jpg"
+    },
+    {
+      "name": "Pizza Portuguesa + Suco de Laranja 500ml + Torta Mousse",
+      "description": "Combo 5",
+      "price": 67.90,
+      "image": "public/images/combo5.jpg"
+    },
+    {
+      "name": "Pizza de Atum + Guaraná lata + Churros Recheado",
+      "description": "Combo 6",
+      "price": 66.90,
+      "image": "public/images/combo6.jpg"
+    },
+    {
+      "name": "Pizza Milho Verde + Coca-Cola lata + Brownie",
+      "description": "Combo 7",
+      "price": 63.90,
+      "image": "public/images/combo7.jpg"
+    },
+    {
+      "name": "Pizza À Moda da Casa + Suco de Maracujá 500ml + Cheesecake",
+      "description": "Combo 8",
+      "price": 68.90,
+      "image": "public/images/combo8.jpg"
+    },
+    {
+      "name": "Pizza Mista + Guaraná lata + Cookie Recheado",
+      "description": "Combo 9",
+      "price": 62.90,
+      "image": "public/images/combo9.jpg"
+    },
+    {
+      "name": "Pizza Calabresa + Pizza Margherita + 2 Guaranás lata",
+      "description": "Combo 10",
+      "price": 95.90,
+      "image": "public/images/combo10.jpg"
+    }
+  ],
+  "Combos da Semana": [
+    {
+      "name": "Pizza Pepperoni + Pizza Quatro Queijos + Coca-Cola 2L",
+      "description": "Combo 11",
+      "price": 109.90,
+      "image": "public/images/combo11.jpg"
+    },
+    {
+      "name": "2 Pizzas Grandes (Mista e Portuguesa) + 4 refrigerantes lata",
+      "description": "Combo 12",
+      "price": 129.90,
+      "image": "public/images/combo12.jpg"
+    },
+    {
+      "name": "Pizza Margherita + Água Mineral + Cheesecake",
+      "description": "Combo 13",
+      "price": 64.90,
+      "image": "public/images/combo13.jpg"
+    },
+    {
+      "name": "Pizza Milho Verde + Suco de Uva + Cookie Recheado",
+      "description": "Combo 14",
+      "price": 59.90,
+      "image": "public/images/combo14.jpg"
+    },
+    {
+      "name": "Pizza Quatro Queijos + Suco de Maracujá + Petit Gateau",
+      "description": "Combo 15",
+      "price": 84.90,
+      "image": "public/images/combo15.jpg"
+    },
+    {
+      "name": "Pizza À Moda da Casa + Borda Catupiry + Suco de Cupuaçu + Brownie",
+      "description": "Combo 16",
+      "price": 92.90,
+      "image": "public/images/combo16.jpg"
+    },
+    {
+      "name": "Pizza Calabresa com Borda de 4 Queijos + Guaraná lata",
+      "description": "Combo 17",
+      "price": 69.90,
+      "image": "public/images/combo17.jpg"
+    },
+    {
+      "name": "Pizza Pepperoni + Coca-Cola lata + Borda de Chocolate + Churros",
+      "description": "Combo 18",
+      "price": 89.90,
+      "image": "public/images/combo18.jpg"
+    },
+    {
+      "name": "3 Pizzas (Margherita, Calabresa e Portuguesa) + Suco de Uva + 2 sobremesas",
+      "description": "Combo 19",
+      "price": 159.90,
+      "image": "public/images/combo19.jpg"
+    },
+    {
+      "name": "Pizza Quatro Queijos + Borda Bacon Catupiry + Suco de Laranja + Petit Gateau",
+      "description": "Combo 20",
+      "price": 98.90,
+      "image": "public/images/combo20.jpg"
+    }
+  ]
+}

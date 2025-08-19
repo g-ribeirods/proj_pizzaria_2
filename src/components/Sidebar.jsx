@@ -93,6 +93,9 @@ export function Sidebar() {
         <MenuItem>
           <MenuLink to="/pagamento">Pagamento</MenuLink>
         </MenuItem>
+        <MenuItem>
+          <MenuLink to="/promocoes">Promoções</MenuLink>
+        </MenuItem>
         
         {user?.role === 'admin' && (
           <>

@@ -9,6 +9,7 @@ import { NotFound } from '../pages/NotFound';
 import { ProtectedRoute } from './ProtectedRoute';
 import { AdminLayout } from '../components/AdminLayout';
 import { Pagamento } from '../pages/Pagamento'; 
+import { Promocoes } from '../pages/Promocoes'; 
 
 
 export function AppRoutes() {
@@ -28,6 +29,7 @@ export function AppRoutes() {
             <Route path="/entregas" element={<Entregas />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/pagamento" element={<Pagamento />} /> 
+            <Route path="/promocoes" element={<Promocoes />} /> 
           </Route>
         </Route>
       </Route>
