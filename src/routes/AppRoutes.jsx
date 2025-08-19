@@ -8,6 +8,8 @@ import { Admin } from '../pages/Admin';
 import { NotFound } from '../pages/NotFound';
 import { ProtectedRoute } from './ProtectedRoute';
 import { AdminLayout } from '../components/AdminLayout';
+import { Pagamento } from '../pages/Pagamento'; 
+
 
 export function AppRoutes() {
   return (
@@ -25,6 +27,7 @@ export function AppRoutes() {
             <Route path="/cozinha" element={<Cozinha />} />
             <Route path="/entregas" element={<Entregas />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/pagamento" element={<Pagamento />} /> 
           </Route>
         </Route>
       </Route>

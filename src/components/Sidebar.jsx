@@ -90,6 +90,9 @@ export function Sidebar() {
         <MenuItem>
           <MenuLink to="/carrinho">Carrinho</MenuLink>
         </MenuItem>
+        <MenuItem>
+          <MenuLink to="/pagamento">Pagamento</MenuLink>
+        </MenuItem>
         
         {user?.role === 'admin' && (
           <>
