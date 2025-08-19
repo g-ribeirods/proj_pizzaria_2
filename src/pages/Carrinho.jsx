@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { usePedidos } from '../context/PedidosContext';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom'; // ← import necessário
 
 const DeliveryOptions = styled.div`
   display: flex;
@@ -133,6 +134,9 @@ export function Carrinho() {
   const [mesaOuEndereco, setMesaOuEndereco] = useState('');
   const [tipoEntrega, setTipoEntrega] = useState(null); // 'local' ou 'entrega'
 
+  const navigate = useNavigate(); // ← inicializa navigate
+
+  // ← função alterada apenas para navegar sem limpar o carrinho
   const finalizarPedido = () => {
     if (cartItems.length === 0) {
       toast.error("Carrinho vazio!");
@@ -154,22 +158,10 @@ export function Carrinho() {
       return;
     }
 
-    const novoPedido = {
-      id: Date.now(), // ← Garanta que isso existe
-      itens: [...cartItems],
-      total,
-      data: new Date().toISOString(),
-      mesaOuEndereco,
-      tipoEntrega,
-      entregueOuServido: false,
-      status: "pendente"
-    };
+    // Navega para a página de pagamento
+    navigate('/pagamento');
 
-    adicionarPedido(novoPedido);
-    clearCart();
-    setMesaOuEndereco('');
-    setTipoEntrega(null);
-    toast.success("Pedido enviado com sucesso!");
+    // ← removemos clearCart() e adicionarPedido() aqui
   };
 
   return (
@@ -197,7 +189,6 @@ export function Carrinho() {
             </CartItem>
           ))}
 
-          {/* Adicione esta seção de opções de entrega */}
           <DeliveryOptions>
             <OptionButton 
               type="button"

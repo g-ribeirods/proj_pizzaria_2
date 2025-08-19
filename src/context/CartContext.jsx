@@ -49,6 +49,11 @@ export function CartProvider({ children }) {
 
   const clearCart = () => setCartItems([]);
 
+  // Nova função para finalizar pagamento
+  const finalizarPagamento = () => {
+    setCartItems([]); // limpa o carrinho apenas quando o pagamento for confirmado
+  };
+
   const total = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
@@ -62,6 +67,7 @@ export function CartProvider({ children }) {
       decreaseQuantity,
       removeItem,
       clearCart,
+      finalizarPagamento,
       total
     }}>
       {children}

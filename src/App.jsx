@@ -7,6 +7,7 @@ import { PedidosProvider } from './context/PedidosContext';
 import { MenuProvider } from './context/MenuContext';
 import { StaffProvider } from './context/StaffContext';
 
+
 function App() {
   return (
     <StaffProvider>
