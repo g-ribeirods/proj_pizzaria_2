@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import React from 'react';
 import { useCart } from '../context/CartContext';
 import { usePedidos } from '../context/PedidosContext';
 import { toast } from 'react-toastify';
@@ -127,13 +127,13 @@ export function Carrinho() {
     decreaseQuantity, 
     removeItem,
     customerName,
-    setCustomerName
+    setCustomerName,
+    mesaOuEndereco,
+    setMesaOuEndereco
   } = useCart();
 
   const { adicionarPedido } = usePedidos();
-  
-  const [mesaOuEndereco, setMesaOuEndereco] = useState('');
-  const [tipoEntrega, setTipoEntrega] = useState(null);
+  const [tipoEntrega, setTipoEntrega] = React.useState(null);
 
   const navigate = useNavigate();
 
@@ -153,13 +153,8 @@ export function Carrinho() {
       return;
     }
 
-    if (tipoEntrega === 'local' && !mesaOuEndereco.trim()) {
-      toast.error("Informe o número da mesa!");
-      return;
-    }
-
-    if (tipoEntrega === 'entrega' && !mesaOuEndereco.trim()) {
-      toast.error("Informe o endereço de entrega!");
+    if (!mesaOuEndereco.trim()) {
+      toast.error(tipoEntrega === 'local' ? "Informe o número da mesa!" : "Informe o endereço de entrega!");
       return;
     }
 
@@ -170,19 +165,19 @@ export function Carrinho() {
       data: new Date().toISOString(),
       mesaOuEndereco,
       tipoEntrega,
-      cliente: customerName, // Adiciona o nome do cliente no pedido
+      cliente: customerName,
       entregueOuServido: false,
       status: "pendente"
     };
 
-    adicionarPedido(novoPedido); // ← envia para a cozinha
-    navigate('/pagamento');      // ← vai para página de pagamento
+    adicionarPedido(novoPedido);
+    navigate('/pagamento');
   };
 
   return (
     <Container>
       <Title>Seu Carrinho</Title>
-      
+
       {cartItems.length === 0 ? (
         <p>Seu carrinho está vazio</p>
       ) : (
@@ -230,11 +225,7 @@ export function Carrinho() {
 
           <Input
             type="text"
-            placeholder={
-              tipoEntrega === 'local' ? "Número da mesa" : 
-              tipoEntrega === 'entrega' ? "Endereço de entrega" : 
-              "Selecione o tipo de entrega"
-            }
+            placeholder={tipoEntrega === 'local' ? "Número da mesa" : "Endereço de entrega"}
             value={mesaOuEndereco}
             onChange={(e) => setMesaOuEndereco(e.target.value)}
             disabled={!tipoEntrega}
@@ -250,4 +241,3 @@ export function Carrinho() {
     </Container>
   );
 }
-

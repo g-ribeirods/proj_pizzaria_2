@@ -49,7 +49,7 @@ const QrContainer = styled.div`
 `;
 
 export function Pagamento() {
-  const { cartItems, total, finalizarPagamento, customerName } = useCart();
+  const { cartItems, total, finalizarPagamento, customerName, mesaOuEndereco } = useCart();
   const [showQr, setShowQr] = useState(false);
 
   const handleGerarQr = () => setShowQr(true);
@@ -69,6 +69,7 @@ export function Pagamento() {
       ) : (
         <>
           <p><strong>Cliente:</strong> {customerName}</p>
+          <p><strong>Local de entrega:</strong> {mesaOuEndereco}</p>
 
           {cartItems.map(item => (
             <Item key={item.name}>

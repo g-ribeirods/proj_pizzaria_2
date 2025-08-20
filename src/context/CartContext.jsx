@@ -4,7 +4,8 @@ const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
-  const [customerName, setCustomerName] = useState(''); //Pegando nome do cliente
+  const [customerName, setCustomerName] = useState(''); // nome do cliente
+  const [mesaOuEndereco, setMesaOuEndereco] = useState(''); // local/mesa
 
   const addToCart = (product) => {
     setCartItems((prevItems) => {
@@ -50,9 +51,10 @@ export function CartProvider({ children }) {
 
   const clearCart = () => setCartItems([]);
 
-  // Nova função para finalizar pagamento
   const finalizarPagamento = () => {
-    setCartItems([]); // limpa o carrinho apenas quando o pagamento for confirmado
+    setCartItems([]); // limpa o carrinho após pagamento
+    setCustomerName('');
+    setMesaOuEndereco('');
   };
 
   const total = cartItems.reduce(
@@ -70,8 +72,10 @@ export function CartProvider({ children }) {
       clearCart,
       finalizarPagamento,
       total,
-      customerName,    // nome do cliente
-      setCustomerName  // função para alterar o nome
+      customerName,
+      setCustomerName,
+      mesaOuEndereco,
+      setMesaOuEndereco
     }}>
       {children}
     </CartContext.Provider>
