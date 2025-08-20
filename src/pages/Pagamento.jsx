@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useCart } from '../context/CartContext';
 import { QRCodeCanvas } from "qrcode.react";
 
-
 const Container = styled.div`
   padding: 2rem;
   max-width: 800px;
@@ -50,20 +49,16 @@ const QrContainer = styled.div`
 `;
 
 export function Pagamento() {
-  const { cartItems, total, finalizarPagamento } = useCart();
+  const { cartItems, total, finalizarPagamento, customerName } = useCart();
   const [showQr, setShowQr] = useState(false);
 
-  const handleGerarQr = () => {
-    setShowQr(true);
-  };
+  const handleGerarQr = () => setShowQr(true);
 
   const handlePagamento = () => {
     alert('Pagamento realizado com sucesso!');
-    finalizarPagamento(); // limpa o carrinho
-    setShowQr(false); // reseta QR
+    finalizarPagamento();
+    setShowQr(false);
   };
-
-  const qrData = `Pagamento de R$ ${total.toFixed(2)} na Pizzaria do Gabriel 🍕`;
 
   return (
     <Container>
@@ -73,6 +68,8 @@ export function Pagamento() {
         <p>Seu carrinho está vazio</p>
       ) : (
         <>
+          <p><strong>Cliente:</strong> {customerName}</p>
+
           {cartItems.map(item => (
             <Item key={item.name}>
               <span>{item.name} x {item.quantity}</span>

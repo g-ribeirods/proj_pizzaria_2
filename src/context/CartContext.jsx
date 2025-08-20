@@ -4,6 +4,7 @@ const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
+  const [customerName, setCustomerName] = useState(''); //Pegando nome do cliente
 
   const addToCart = (product) => {
     setCartItems((prevItems) => {
@@ -68,7 +69,9 @@ export function CartProvider({ children }) {
       removeItem,
       clearCart,
       finalizarPagamento,
-      total
+      total,
+      customerName,    // nome do cliente
+      setCustomerName  // função para alterar o nome
     }}>
       {children}
     </CartContext.Provider>

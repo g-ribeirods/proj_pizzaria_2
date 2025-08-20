@@ -103,7 +103,7 @@ const TotalContainer = styled.div`
 const Input = styled.input`
   width: 100%;
   padding: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 1.3rem;
   border: 1px solid #ddd;
   border-radius: 4px;
 `;
@@ -125,7 +125,9 @@ export function Carrinho() {
     total, 
     increaseQuantity, 
     decreaseQuantity, 
-    removeItem
+    removeItem,
+    customerName,
+    setCustomerName
   } = useCart();
 
   const { adicionarPedido } = usePedidos();
@@ -146,6 +148,11 @@ export function Carrinho() {
       return;
     }
 
+    if (!customerName.trim()) {
+      toast.error("Informe o nome do cliente!");
+      return;
+    }
+
     if (tipoEntrega === 'local' && !mesaOuEndereco.trim()) {
       toast.error("Informe o número da mesa!");
       return;
@@ -163,6 +170,7 @@ export function Carrinho() {
       data: new Date().toISOString(),
       mesaOuEndereco,
       tipoEntrega,
+      cliente: customerName, // Adiciona o nome do cliente no pedido
       entregueOuServido: false,
       status: "pendente"
     };
@@ -179,6 +187,13 @@ export function Carrinho() {
         <p>Seu carrinho está vazio</p>
       ) : (
         <>
+          <Input
+            type="text"
+            placeholder="Nome do cliente"
+            value={customerName}
+            onChange={(e) => setCustomerName(e.target.value)}
+          />
+
           {cartItems.map((item) => (
             <CartItem key={item.name}>
               <ItemInfo>
@@ -235,3 +250,4 @@ export function Carrinho() {
     </Container>
   );
 }
+
