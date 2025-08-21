@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { usePedidos } from '../context/PedidosContext';
-import { StaffContext } from '../context/StaffContext'; // Verifique o caminho correto
+import { StaffContext } from '../context/StaffContext';
 import { toast } from 'react-toastify';
 
 // Estilos corrigidos
@@ -97,10 +97,40 @@ const StaffSelect = styled.select`
   background: white;
 `;
 
+const GorjetaContainer = styled.div`
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #fff3e0;
+  border-radius: 6px;
+  border-left: 4px solid #ff9800;
+`;
+
+const GorjetaOption = styled.label`
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+  cursor: pointer;
+`;
+
+const GorjetaInput = styled.input`
+  margin-right: 0.5rem;
+`;
+
+const GorjetaText = styled.span`
+  color: #333;
+`;
+
+const GorjetaValue = styled.span`
+  font-weight: bold;
+  color: #e65100;
+  margin-left: 0.5rem;
+`;
+
 export function Entregas() {
   const { garcons = [], entregadores = [] } = useContext(StaffContext) || {};
   const { pedidosEntrega, marcarComoEntregueOuServido } = usePedidos();
   const [selecoes, setSelecoes] = useState({});
+  const [gorjetas, setGorjetas] = useState({});
 
   const getStaffDisponivel = (tipoEntrega) => {
     return tipoEntrega === 'local' ? garcons : entregadores;
@@ -108,6 +138,15 @@ export function Entregas() {
 
   const handleSelecao = (pedidoId, staffId) => {
     setSelecoes(prev => ({ ...prev, [pedidoId]: staffId }));
+  };
+
+  const handleGorjeta = (pedidoId, comGorjeta) => {
+    setGorjetas(prev => ({ ...prev, [pedidoId]: comGorjeta }));
+  };
+
+  const calcularTotalComGorjeta = (pedido) => {
+    const gorjeta = gorjetas[pedido.id] ? pedido.total * 0.1 : 0;
+    return pedido.total + gorjeta;
   };
 
   const handleFinalizar = (pedido) => {
@@ -118,15 +157,28 @@ export function Entregas() {
       return;
     }
 
+    const comGorjeta = gorjetas[pedido.id] || false;
+    const valorGorjeta = comGorjeta ? pedido.total * 0.1 : 0;
+    const totalComGorjeta = pedido.total + valorGorjeta;
+
     marcarComoEntregueOuServido({
       ...pedido,
       staffResponsavel: staffId,
+      comGorjeta,
+      valorGorjeta,
+      totalComGorjeta,
       entregueOuServido: true,
       status: "finalizado"
     });
 
-    toast.success(pedido.tipoEntrega === 'local' ? 'Servido!' : 'Entregue!');
+    toast.success(
+      pedido.tipoEntrega === 'local' 
+        ? `Servido! ${comGorjeta ? '(+10% de gorjeta)' : ''}` 
+        : `Entregue! ${comGorjeta ? '(+10% de gorjeta)' : ''}`
+    );
+    
     setSelecoes(prev => ({ ...prev, [pedido.id]: undefined }));
+    setGorjetas(prev => ({ ...prev, [pedido.id]: undefined }));
   };
 
   return (
@@ -153,7 +205,7 @@ export function Entregas() {
               </div>
             </InfoRow>
 
-            {/* Tipo e Local */}
+            {/* TIPO E LOCAL - SEÇÃO QUE ESTAVA FALTANDO */}
             <InfoRow>
               <div>
                 <InfoLabel>Tipo:</InfoLabel>
@@ -192,8 +244,44 @@ export function Entregas() {
               </InfoValue>
             </InfoRow>
 
+            {/* SEÇÃO DE GORJETA (só para consumo local) */}
+            {!pedido.entregueOuServido && pedido.tipoEntrega === 'local' && (
+              <GorjetaContainer>
+                <StaffLabel>Gorjeta (10%):</StaffLabel>
+                <GorjetaOption>
+                  <GorjetaInput
+                    type="radio"
+                    name={`gorjeta-${pedido.id}`}
+                    checked={gorjetas[pedido.id] === true}
+                    onChange={() => handleGorjeta(pedido.id, true)}
+                  />
+                  <GorjetaText>Sim, incluir 10% de gorjeta</GorjetaText>
+                  <GorjetaValue>(+ R$ {(pedido.total * 0.1).toFixed(2)})</GorjetaValue>
+                </GorjetaOption>
+                
+                <GorjetaOption>
+                  <GorjetaInput
+                    type="radio"
+                    name={`gorjeta-${pedido.id}`}
+                    checked={gorjetas[pedido.id] === false}
+                    onChange={() => handleGorjeta(pedido.id, false)}
+                  />
+                  <GorjetaText>Não, obrigado</GorjetaText>
+                </GorjetaOption>
+
+                {gorjetas[pedido.id] && (
+                  <InfoRow style={{ marginTop: '0.5rem' }}>
+                    <InfoLabel>Total com gorjeta:</InfoLabel>
+                    <InfoValue style={{ color: '#e65100', fontWeight: 'bold' }}>
+                      R$ {calcularTotalComGorjeta(pedido).toFixed(2)}
+                    </InfoValue>
+                  </InfoRow>
+                )}
+              </GorjetaContainer>
+            )}
+
             {/* Área de ação (só aparece se não entregue) */}
-             {!pedido.entregueOuServido && (
+            {!pedido.entregueOuServido && (
               <StaffSelectionContainer>
                 <StaffLabel>
                   {pedido.tipoEntrega === 'local' ? 'Atribuir Garçom:' : 'Atribuir Entregador:'}
